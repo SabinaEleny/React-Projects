@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+    --color-faded-green: #10b881;
+    --color-faded-red: #ed4344
+}

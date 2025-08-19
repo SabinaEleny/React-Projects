@@ -1,22 +1,22 @@
 import { Button } from './Button.tsx';
 
-type ModalProps = {
+type ConfirmationModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
+  onConfirm: () => void;
   title: string;
-  submitButtonText: string;
+  confirmButtonText?: string;
   children: React.ReactNode;
 };
 
-export function Modal({
+export function ConfirmationModal({
   isOpen,
   onClose,
-  onSubmit,
+  onConfirm,
   title,
-  submitButtonText,
+  confirmButtonText = 'Delete',
   children,
-}: ModalProps) {
+}: ConfirmationModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -26,26 +26,26 @@ export function Modal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md flex flex-col gap-6"
+        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-sm flex flex-col gap-5"
       >
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-slate-800">{title}</h2>
+        <div className="flex items-start justify-between">
+          <h2 className="text-lg font-bold text-slate-800">{title}</h2>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 text-2xl"
+            className="text-slate-400 hover:text-slate-600 text-2xl -mt-2"
           >
             &times;
           </button>
         </div>
-
-        <div>{children}</div>
-
+        Are you sure?
+        <div className="text-slate-600 text-sm">{children}</div>
         <div className="flex gap-3">
           <Button variant="secondary" onClick={onClose} className="flex-1">
             Cancel
           </Button>
-          <Button variant="primary" onClick={onSubmit} className="flex-1">
-            {submitButtonText}
+
+          <Button variant="delete" onClick={onConfirm} className="flex-1">
+            {confirmButtonText}
           </Button>
         </div>
       </div>
